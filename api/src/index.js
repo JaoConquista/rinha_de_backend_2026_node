@@ -8,7 +8,6 @@ const path = require("path");
 const { chain } = require("stream-chain");
 const { parser } = require("stream-json");
 const { streamArray } = require("stream-json/streamers/StreamArray"); 
-const preprocessData = require("./preprocess.js");
 
 const PORT = parseInt(process.env.PORT || "3000", 10);
 const RESOURCES_DIR = process.env.RESOURCES_DIR || "../resources";
@@ -190,8 +189,6 @@ app.post('/fraud-score', async (req, reply) => {
 });
 
 async function start(){
-
-    await preprocessData();
 
     await app.listen({ port: PORT, host: '0.0.0.0' });
 

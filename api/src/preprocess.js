@@ -12,12 +12,11 @@ const DIM       = 14;
 const vectorsPath = path.join(CACHE, 'vectors.bin');
 const labelsPath  = path.join(CACHE, 'labels.bin');
 
-const preprocessData = async () => {
-  // Se já existe, não faz nada (útil se o volume persistir entre runs)
-  if (fs.existsSync(vectorsPath) && fs.existsSync(labelsPath)) {
-    console.log('[preprocessor] Binários já existem, pulando.');
-    return;
-  }
+// Se já existe, não faz nada (útil se o volume persistir entre runs)
+if (fs.existsSync(vectorsPath) && fs.existsSync(labelsPath)) {
+  console.log('[preprocessor] Binários já existem, pulando.');
+  return;
+}
 console.log('[preprocessor] Iniciando...');
 
 // ─── Streaming do .gz ──────────────────────────────────────────────────────
@@ -61,7 +60,3 @@ fs.writeFileSync(vectorsPath, Buffer.from(vectors.buffer));
 fs.writeFileSync(labelsPath,  Buffer.from(labels.buffer));
 
 console.log(`[preprocessor] Pronto. vectors.bin: ${(vectors.byteLength / 1e6).toFixed(1)} MB`);
-return
-};
-
-module.exports = preprocessData;
