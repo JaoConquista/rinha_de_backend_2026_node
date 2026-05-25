@@ -1,4 +1,20 @@
 services:
+  preprocessor:
+    build:
+      context: ./api/preprocessor
+      dockerfile: Dockerfile
+    volumes:
+      - ./resources:/app/resources:ro
+      - ./cache:/app/cache:ro
+    environment:
+      - RESOURCES_DIR=/app/resources
+      - CACHE_DIR=/app/cache
+    deploy:
+      resources:
+        limits:
+          cpus: "0.05"
+          memory: "20MB"
+
   nginx:
     image: nginx:1.27-alpine
     ports:
@@ -22,16 +38,21 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./resources:/app/resources:ro
+      - ./cache:/app/cache:ro
     environment:
       - PORT=3000
       - RESOURCES_DIR=/app/resources
+      - CACHE_DIR=/app/cache
+    depends_on:
+      preprocessor:
+        condition: service_completed_successfully
     networks:
       - rinha_fraud_net
     deploy:
       resources:
         limits:
           cpus: "0.475"
-          memory: "170MB"
+          memory: "160MB"
   
   api2:
     build:
@@ -39,16 +60,25 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./resources:/app/resources:ro
+      - ./cache:/app/cache:ro
     environment:
       - PORT=3000
       - RESOURCES_DIR=/app/resources
+      - CACHE_DIR=/app/cache
+    depends_on:
+      preprocessor:
+        condition: service_completed_successfully
     networks:
       - rinha_fraud_net
     deploy:
       resources:
         limits:
           cpus: "0.475"
-          memory: "170MB"
+          memory: "160MB"
+
+volumes:
+  cache:
+    driver: local
 
 networks:
   rinha_fraud_net:

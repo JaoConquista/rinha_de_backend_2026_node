@@ -10,7 +10,7 @@ const { parser } = require("stream-json");
 const { streamArray } = require("stream-json/streamers/StreamArray");
 
 const PORT = parseInt(process.env.PORT || "3000", 10);
-const RESOURCES_DIR = process.env.RESOURCES_DIR || "../resources";
+const RESOURCES_DIR = process.env.RESOURCES_DIR || "../../resources";
 const DIM = 14; //dimensões de cada vetor
 const K = 5; //vizinhos mais próximos
 const THRESHOLD = 0.6; //limiar de APROVAÇÃO
@@ -23,17 +23,26 @@ let mccRisk    = {};
 let normConst  = {};
 
 async function loadData(){
-    console.log('[startup] Carregando normalization.json...');
+
+    const CACHE = process.env.CACHE_DIR || "../../cache";
+
+    // lendo bytes
+    const vecBuf = fs.readFileSync(path.join(CACHE, "vectors.bin"));
+
+    refVectors = new Int8Array(vecBuf.buffer, vecBuf.byteOffset, vecBuf.byteLength);
+
+    const lblBuf = fs.readFileSync(path.join(CACHE, "labels.bin"));
+    refLabels = new Uint8Array(lblBuf.buffer, lblBuf.byteOffset, lblBuf.byteLength);
+
     normConst = JSON.parse(
         fs.readFileSync(path.join(RESOURCES_DIR, "normalization.json"), "utf8")
     );
 
-    console.log('[startup] Carregando mcc_risk.json...');
     mccRisk = JSON.parse(
         fs.readFileSync(path.join(RESOURCES_DIR, "mcc_risk.json"), "utf8")
     );
 
-    console.log('[startup] Processando references.json.gz com streaming...');
+  console.log(`[startup] ${refLabels.length} vetores carregados em binário`);
     
     const tempVectors = [];
     const tempLabels = [];
