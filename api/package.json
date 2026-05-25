@@ -4,7 +4,8 @@
   "description": "rinha de backend 2026, versão Node.js",
   "scripts": {
     "test": "npm run test",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "preprocess": "node src/preprocess.js"
   },
   "author": "",
   "license": "ISC",

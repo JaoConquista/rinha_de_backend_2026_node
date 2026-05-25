@@ -7,10 +7,10 @@ const zlib = require("zlib");
 const path = require("path");
 const { chain } = require("stream-chain");
 const { parser } = require("stream-json");
-const { streamArray } = require("stream-json/streamers/StreamArray");
+const { streamArray } = require("stream-json/streamers/StreamArray"); 
 
 const PORT = parseInt(process.env.PORT || "3000", 10);
-const RESOURCES_DIR = process.env.RESOURCES_DIR || "../../resources";
+const RESOURCES_DIR = process.env.RESOURCES_DIR || "../resources";
 const DIM = 14; //dimensões de cada vetor
 const K = 5; //vizinhos mais próximos
 const THRESHOLD = 0.6; //limiar de APROVAÇÃO
@@ -24,7 +24,7 @@ let normConst  = {};
 
 async function loadData(){
 
-    const CACHE = process.env.CACHE_DIR || "../../cache";
+    const CACHE = process.env.CACHE_DIR || "./cache";
 
     // lendo bytes
     const vecBuf = fs.readFileSync(path.join(CACHE, "vectors.bin"));
@@ -189,6 +189,7 @@ app.post('/fraud-score', async (req, reply) => {
 });
 
 async function start(){
+
     await app.listen({ port: PORT, host: '0.0.0.0' });
 
     await loadData();
