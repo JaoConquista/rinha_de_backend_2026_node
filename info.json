@@ -1,0 +1,8 @@
+{
+  "name": "rinha_de_backend_2026_node",
+  "description": "Rinha de Backend 2026 - Fraud Detection API with Node.js",
+  "language": "Node.js",
+  "version": "1.0.0",
+  "author": "",
+  "architecture": "Multi-container with nginx load balancer, 2 API instances, and preprocessor service"
+}

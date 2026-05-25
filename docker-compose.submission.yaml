@@ -17,42 +17,36 @@ services:
           memory: "10MB"
 
   api1:
-    build:
-      context: ./api
-      dockerfile: Dockerfile
+    image: jaoconquista/rinha-api:latest
     volumes:
-      - ./resources:/app/resources:ro
-      - ./cache:/app/cache:ro
+      - cache:/app/cache:ro
     environment:
       - PORT=3000
       - RESOURCES_DIR=/app/resources
-      - CACHE_DIR=/app/api/cache
+      - CACHE_DIR=/app/cache
     networks:
       - rinha_fraud_net
     deploy:
       resources:
         limits:
-          cpus: "5"
-          memory: "170MB"
-  
+          cpus: "0.475"
+          memory: "155MB"
+
   api2:
-    build:
-      context: ./api
-      dockerfile: Dockerfile
+    image: jaoconquista/rinha-api:latest
     volumes:
-      - ./resources:/app/resources:ro
-      - ./cache:/app/cache:ro
+      - cache:/app/cache:ro
     environment:
       - PORT=3000
       - RESOURCES_DIR=/app/resources
-      - CACHE_DIR=/app/api/cache
+      - CACHE_DIR=/app/cache
     networks:
       - rinha_fraud_net
     deploy:
       resources:
         limits:
-          cpus: "5"
-          memory: "170MB"
+          cpus: "0.475"
+          memory: "155MB"
 
 volumes:
   cache:
