@@ -17,7 +17,9 @@ services:
           memory: "10MB"
 
   api1:
-    image: jaoconquista/rinha-api:latest
+    build:
+      context: .
+      dockerfile: api/Dockerfile
     volumes:
       - cache:/app/cache:ro
     environment:
@@ -33,7 +35,9 @@ services:
           memory: "170MB"
 
   api2:
-    image: jaoconquista/rinha-api:latest
+    build:
+      context: .
+      dockerfile: api/Dockerfile
     volumes:
       - cache:/app/cache:ro
     environment:
