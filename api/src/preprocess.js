@@ -6,7 +6,7 @@ const zlib = require("zlib");
 const path = require("path");
 
 const RESOURCES = process.env.RESOURCES_DIR || '../resources';
-const CACHE     = process.env.CACHE_DIR     || './cache';
+const CACHE     = process.env.CACHE_DIR     || './bin_data';
 const DIM       = 14;
 
 const vectorsPath = path.join(CACHE, 'vectors.bin');

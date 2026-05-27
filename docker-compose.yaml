@@ -21,11 +21,11 @@ services:
       context: .
       dockerfile: api/Dockerfile
     volumes:
-      - cache:/app/cache:ro
+      - cache:/app/bin_data
     environment:
       - PORT=3000
       - RESOURCES_DIR=/app/resources
-      - CACHE_DIR=/app/cache
+      - CACHE_DIR=/app/bin_data
     networks:
       - rinha_fraud_net
     deploy:
@@ -39,11 +39,11 @@ services:
       context: .
       dockerfile: api/Dockerfile
     volumes:
-      - cache:/app/cache:ro
+      - cache:/app/bin_data
     environment:
       - PORT=3000
       - RESOURCES_DIR=/app/resources
-      - CACHE_DIR=/app/cache
+      - CACHE_DIR=/app/bin_data
     networks:
       - rinha_fraud_net
     deploy:

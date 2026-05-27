@@ -36,7 +36,7 @@ function getPooledVector() {
 // Antes: lia o cache binário E depois reprocessava o JSON.gz, sobrescrevendo
 // os arrays. Agora: usa só o cache binário — muito mais rápido no startup.
 async function loadData() {
-    const CACHE = process.env.CACHE_DIR || "./cache";
+    const CACHE = process.env.CACHE_DIR || "./bin_data";
 
     const vecBuf   = fs.readFileSync(path.join(CACHE, "vectors.bin"));
     refVectors     = new Int8Array(vecBuf.buffer, vecBuf.byteOffset, vecBuf.byteLength);
